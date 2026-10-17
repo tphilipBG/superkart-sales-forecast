@@ -14,7 +14,7 @@ with sync_playwright() as p:
     page.goto(url, wait_until="networkidle", timeout=120000)
     for txt in ["Continue", "Go to"]:
         try:
-            page.get_by_role("button", name=txt).click(timeout=3000)
+            page.locator(f"text={txt}").first.click(timeout=8000); page.wait_for_load_state("networkidle")
         except Exception:
             pass
     try:
