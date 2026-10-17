@@ -12,7 +12,9 @@ docker network create superkart-network || true
 (cd frontend && docker build -t superkart-frontend .)
 docker rm -f backend frontend 2>/dev/null
 docker run -d --name backend --network superkart-network -p 7860:7860 superkart-backend
-docker run -d --name frontend --network superkart-network -p 8501:8501 superkart-frontend
+# In Codespaces the nested Docker bridge did not pass container-to-container traffic, so the
+# hostname "backend" is mapped to the Docker host gateway; app.py still calls http://backend:7860.
+docker run -d --name frontend --network superkart-network --add-host backend:host-gateway -p 8501:8501 superkart-frontend
 for i in $(seq 1 60); do curl -s localhost:7860/ | grep -q Welcome && break; sleep 2; done
 for i in $(seq 1 60); do curl -s localhost:8501/ >/dev/null && break; sleep 2; done
 DOMAIN=${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}
@@ -29,7 +31,7 @@ for i in $(seq 1 60); do curl -s "$BACK/" | grep -q Welcome && break; sleep 3; d
 { docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'; echo; docker network inspect superkart-network --format '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{"\n"}}{{end}}'; } > $EV/docker_ps.txt
 docker logs backend > $EV/backend_log.txt 2>&1
 docker logs frontend > $EV/frontend_log.txt 2>&1
-pip install -q requests pandas playwright==1.48.0
+python -m pip install -q requests pandas playwright
 python -m playwright install --with-deps chromium > /dev/null 2>&1
 python deploy/inference.py "$BACK" > $EV/inference_output.txt 2>&1
 python deploy/capture.py "$FRONT" "$EV" > $EV/capture_log.txt 2>&1
