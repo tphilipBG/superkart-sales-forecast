@@ -1,4 +1,6 @@
-Traceback (most recent call last):
-  File "/workspaces/superkart-sales-forecast/deploy/inference.py", line 2, in <module>
-    import sys, json, requests, pandas as pd
-ModuleNotFoundError: No module named 'pandas'
+model_root_url: https://ominous-spoon-jr4gqq66qx4phqgq6-7860.app.github.dev
+SINGLE status: 200
+SINGLE json: {'Sales': 2910.366916071428}
+BATCH response: <Response [200]>
+BATCH text: {"0":3653.31,"1":3390.78,"2":3723.58,"3":1662.22,"4":4075.09,"5":4896.25,"6":2284.55,"7":2382.34,"8":4687.56,"9":2135.99}
+

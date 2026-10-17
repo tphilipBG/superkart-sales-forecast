@@ -582,3 +582,8 @@ error: failed-wheel-build-for-install
  create mode 100644 evidence/run_log.txt
 To https://github.com/tphilipBG/superkart-sales-forecast
    f9aa54e..f81ebb2  HEAD -> main
+[main 051801a] Deployment evidence complete
+ 2 files changed, 14 insertions(+)
+ create mode 100644 evidence/done.txt
+To https://github.com/tphilipBG/superkart-sales-forecast
+   f81ebb2..051801a  HEAD -> main
