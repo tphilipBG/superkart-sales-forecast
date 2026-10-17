@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/workspaces/superkart-sales-forecast/deploy/inference.py", line 2, in <module>
+    import sys, json, requests, pandas as pd
+ModuleNotFoundError: No module named 'pandas'
